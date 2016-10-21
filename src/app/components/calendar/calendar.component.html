@@ -1,0 +1,40 @@
+<div>Calendar works</div>
+<div>
+  calendar works!
+  <a (click)="prevMonth()">Prev</a>
+  <a (click)="nextMonth()">Next</a>
+
+
+  <div class="row">
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week0; let i = index;" (click)="showEvent(i, 'week0')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week0; let i = index;" (click)="showEvent(i, 'week0')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week0; let i = index;" (click)="showEvent(i, 'week0')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+
+      
+  </div>
+</div>  
+
+<div  *ngIf="currentEvent" id="overlay4">
+    <div>
+        <h2>{{ currentEvent.name }}</h2>
+        <img class="md-user-avatar" src="{{ currentEvent.cover }}">
+        <p><span>Name : {{ currentEvent.name }}</span></p>
+        <a md-button (click)="hideEvent()">SHOW</a>
+    </div>   
+     <div class="background"></div>   
+</div> 

@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { FbconnectComponentComponent } from './fbconnect-component.component';
+import { NavComponent } from './nav.component';
 
-describe('Component: FbconnectComponent', () => {
+describe('Component: Nav', () => {
   it('should create an instance', () => {
-    let component = new FbconnectComponentComponent();
+    let component = new NavComponent();
     expect(component).toBeTruthy();
   });
 });
