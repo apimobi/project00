@@ -1,0 +1,7 @@
+.navOpen{
+    transform: translateX(0);
+}
+
+.navClosed{
+    transform: translateX(-100%);
+}

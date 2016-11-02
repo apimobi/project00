@@ -5,19 +5,16 @@ import {
   state,
   style,
   transition,
-  animate,
-  ViewChild,
-  ElementRef } from '@angular/core';
-import { FacebookService } from '../../services/facebook.service';
-import { CalendarEvent } from '../../model/calendar-event';
-import { DataService } from '../../services/data.service';
+  animate
+ } from '@angular/core';
 import { ParametersService } from '../../services/parameters.service';
 
 
 @Component({
-  selector: 'app-fbconnect-component',
-  templateUrl: './fbconnect-component.component.html',
-  styleUrls: ['./fbconnect-component.component.css'],
+  //moduleId: module.id,
+  selector: 'app-home-page',
+  templateUrl: 'home-page.component.html',
+  styleUrls: ['home-page.component.css'],
   host: {
       '[@inOut]': 'translation',
       '[style.display]': "'block'",
@@ -42,24 +39,20 @@ import { ParametersService } from '../../services/parameters.service';
       ])
     ]
 })
-export class FbconnectComponentComponent implements OnInit {
+export class HomePage implements OnInit {
 
-  calendarEvents:CalendarEvent[] = [];
-  loaded:boolean = false;
-  firstEvent:CalendarEvent;
   translation : string = 'left';
-  pageId:number = 2;
-  fb:FacebookService;
-
+  pageId:number = 0;
+  
+  // constructor(private fbService:FacebookService) { }
   constructor(
-        private dataService:DataService,
-        private parametersService: ParametersService
-            ) {
+    private parametersService: ParametersService
+    ) {     
      
    }
 
   ngOnInit() {
-
+     
      if(this.pageId > this.parametersService.getParameter('currentPageId')) 
      {
        if(this.parametersService.getCurrentPage())
@@ -74,31 +67,15 @@ export class FbconnectComponentComponent implements OnInit {
        }   
        this.translation = 'left';
      }
-     console.log('PageNotFound '+this.translation);
-     this.parametersService.setCurrentPageId(this.pageId);
-  }
-
-  connectMe()
-  {
-     this.fb = new FacebookService();
-     this.fb.logMe(this.showData);
-  }
-
-  public showData = (data) => {
-    console.log("data : ");
-    // this.calendarEvents = [];
-    for (var key in data) {
-       this.calendarEvents.push( new CalendarEvent(data[key]));
-    }
-
-    this.dataService.saveEvents(this.calendarEvents);
-    // console.log(">>>>>"+this.calendarEvents[10].name); 
-    
+     console.log('HomePage '+this.translation);
+     this.parametersService.setCurrentPageId(this.pageId);  
+     
   }
 
   public setTransition(str:string):void
   {
       this.translation = str;
   }
+
 
 }

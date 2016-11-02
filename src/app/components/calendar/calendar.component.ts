@@ -20,29 +20,28 @@ import { CalendarEvent } from '../../model/calendar-event';
   templateUrl: 'calendar.component.html',
   styleUrls: ['calendar.component.css'],
   host: {
-     '[@inOut]': 'translation',
-     '[style.display]': "'block'",
-     '[style.position]': "'relative'",
-     '[style.width]': "'100%'",
-     '[style.height]': "'100%'"
-  },
-  animations: [
-    trigger('inOut', [
-      state('void', style({transform: 'translateX(-100%)', opacity: 0 })),
-      state('right', style({transform: 'translateX(0)', opacity: 1})),
-      state('left', style({transform: 'translateX(0)', opacity: 1})),
-      transition('void => left', [
-        style({transform: 'translateX(-100%)', opacity: 1}),
-        animate(1000)
-      ]),
-      transition('void => right', [
-        style({transform: 'translateX(100%)', opacity: 0.5}),
-        animate(1000)
-      ]),
-      transition('right => void', animate(1000, style({transform: 'translateX(100%)', opacity: 0}))),
-      transition('left => void', animate(1000, style({transform: 'translateX(-100%)', opacity: 0})))
-    ])
-  ]
+      '[@inOut]': 'translation',
+      '[style.display]': "'block'",
+      '[style.position]': "'absolute'",
+      '[style.width]': "'100%'"
+    },
+    animations: [
+      trigger('inOut', [
+        state('void', style({transform: 'translateX(-100%)', opacity: 0 })),
+        state('right', style({transform: 'translateX(0)', opacity: 1})),
+        state('left', style({transform: 'translateX(0)', opacity: 1})),
+        transition('void => left', [
+          style({transform: 'translateX(-100%)', opacity: 1}),
+          animate(1000)
+        ]),
+        transition('void => right', [
+          style({transform: 'translateX(100%)', opacity: 0.5}),
+          animate(1000)
+        ]),
+        transition('right => void', animate(1000, style({transform: 'translateX(100%)', opacity: 0}))),
+        transition('left => void', animate(1000, style({transform: 'translateX(-100%)', opacity: 0})))
+      ])
+    ]
 })
 
 
@@ -73,17 +72,27 @@ export class Calendar implements OnInit {
   constructor(
     private dataService:DataService,
     private parametersService: ParametersService
-    ) {    
-      this.parametersService.setCurrentPage(this);
+    ) {
+
    }
 
   ngOnInit() {
-     
-     if(this.pageId > this.parametersService.getParameter('currentPageId')) this.translation = 'right';
-     else this.translation = 'left';
-     console.log('calendar '+this.translation);
+     if(this.pageId > this.parametersService.getParameter('currentPageId')) 
+     {
+       if(this.parametersService.getCurrentPage())
+       {
+          this.parametersService.getCurrentPage().setTransition('left');
+       }  
+       this.translation = 'right';
+     }else{
+       if(this.parametersService.getCurrentPage())
+       {
+          this.parametersService.getCurrentPage().setTransition('right');
+       }   
+       this.translation = 'left';
+     } 
+     console.log('Calendar '+this.translation);
      this.parametersService.setCurrentPageId(this.pageId);
-
      this.calendarEvents =  this.dataService.getEvents(); 
      this.initCalendar('2016/10/01');
   }
@@ -235,8 +244,6 @@ export class Calendar implements OnInit {
      console.log('ouiiiiiiiiii '+id);
      this.initCalendar('2016/'+(id)+'/1');
   }
-
-  
 
 
 }

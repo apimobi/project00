@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  public isCollapsed:boolean = true;
+  private width;
+  private height;
+  public navClass = "navClosed";
+
+  constructor(private router: Router,) {
+
+  }
 
   ngOnInit() {
+    
+  }
+
+  goTo(page){
+      this.router.navigate(['/'+page]);
+      this.showMenu();
+  }
+
+  showMenu()
+  {
+      if(this.navClass == "navOpen"){
+          this.navClass = "navClosed";
+      }else{
+          this.navClass = "navOpen";
+      }
   }
 
 }

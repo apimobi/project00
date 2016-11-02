@@ -1,6 +1,7 @@
 <div>Calendar works</div>
 <div>
   calendar works!
+  <h2>{{ month }}</h2>
   <a (click)="prevMonth()">Prev</a>
   <a (click)="nextMonth()">Next</a>
 
@@ -13,13 +14,31 @@
           </div>  
       </div>
       <div class="grid-example col s12 m2">
-          <div *ngFor="let day of week0; let i = index;" (click)="showEvent(i, 'week0')">
+          <div *ngFor="let day of week1; let i = index;" (click)="showEvent(i, 'week1')">
             <span [innerHTML]="day.date"></span>  
             <img src="{{day.cover}}" style="height:30px" />
           </div>  
       </div>
       <div class="grid-example col s12 m2">
-          <div *ngFor="let day of week0; let i = index;" (click)="showEvent(i, 'week0')">
+          <div *ngFor="let day of week2; let i = index;" (click)="showEvent(i, 'week2')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week3; let i = index;" (click)="showEvent(i, 'week3')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week4; let i = index;" (click)="showEvent(i, 'week4')">
+            <span [innerHTML]="day.date"></span>  
+            <img src="{{day.cover}}" style="height:30px" />
+          </div>  
+      </div>
+      <div class="grid-example col s12 m2">
+          <div *ngFor="let day of week5; let i = index;" (click)="showEvent(i, 'week5')">
             <span [innerHTML]="day.date"></span>  
             <img src="{{day.cover}}" style="height:30px" />
           </div>  
@@ -31,10 +50,10 @@
 
 <div  *ngIf="currentEvent" id="overlay4">
     <div>
+        <a md-button (click)="hideEvent()">SHOW</a>    
         <h2>{{ currentEvent.name }}</h2>
         <img class="md-user-avatar" src="{{ currentEvent.cover }}">
         <p><span>Name : {{ currentEvent.name }}</span></p>
-        <a md-button (click)="hideEvent()">SHOW</a>
     </div>   
-     <div class="background"></div>   
+    <!--<div class="background"></div>-->
 </div> 
