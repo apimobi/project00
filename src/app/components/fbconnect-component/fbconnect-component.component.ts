@@ -86,7 +86,7 @@ export class FbconnectComponentComponent implements OnInit {
 
   public showData = (data) => {
     console.log("data : ");
-    // this.calendarEvents = [];
+    this.calendarEvents = [];
     for (var key in data) {
        this.calendarEvents.push( new CalendarEvent(data[key]));
     }
@@ -94,6 +94,16 @@ export class FbconnectComponentComponent implements OnInit {
     this.dataService.saveEvents(this.calendarEvents);
     // console.log(">>>>>"+this.calendarEvents[10].name); 
     
+  }
+
+  loadFBCover()
+  {
+    this.fb.getEvent(532899443574151, this.callBackEvent);
+  }
+
+  public callBackEvent(response)
+  {
+     console.log(" okkkk "+response);
   }
 
   public setTransition(str:string):void
