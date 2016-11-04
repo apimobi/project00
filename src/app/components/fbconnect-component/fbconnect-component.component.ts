@@ -1,6 +1,7 @@
 import { 
   Component,
   OnInit,
+  OnDestroy,
   trigger,
   state,
   style,
@@ -50,16 +51,14 @@ export class FbconnectComponentComponent implements OnInit {
   translation : string = 'left';
   pageId:number = 2;
   fb:FacebookService;
+  public connectEnable = "";
+  public loadEnable = "disabled";
+  public calendarEnable = "disabled";
 
   constructor(
         private dataService:DataService,
         private parametersService: ParametersService
             ) {
-     
-   }
-
-  ngOnInit() {
-
      if(this.pageId > this.parametersService.getParameter('currentPageId')) 
      {
        if(this.parametersService.getCurrentPage())
@@ -73,10 +72,22 @@ export class FbconnectComponentComponent implements OnInit {
           this.parametersService.getCurrentPage().setTransition('right');
        }   
        this.translation = 'left';
-     }
-     console.log('PageNotFound '+this.translation);
+     }       
+     
+   }
+
+  ngOnInit() {
+     console.log('Fb connect '+this.translation);
      this.parametersService.setCurrentPageId(this.pageId);
+     this.parametersService.setCurrentPage(this); 
   }
+
+  ngOnDestroy() {
+     console.log('Destroy Fb connect '+this.translation);
+     
+  }
+
+
 
   connectMe()
   {
@@ -92,6 +103,9 @@ export class FbconnectComponentComponent implements OnInit {
     }
 
     this.dataService.saveEvents(this.calendarEvents);
+
+    this.connectEnable = "disabled";
+    this.calendarEnable = "";
     // console.log(">>>>>"+this.calendarEvents[10].name); 
     
   }
@@ -103,12 +117,15 @@ export class FbconnectComponentComponent implements OnInit {
 
   public callBackEvent(response)
   {
+     this.loadEnable = "disabled";
+     this.calendarEnable = "";
      console.log(" okkkk "+response);
   }
 
   public setTransition(str:string):void
   {
       this.translation = str;
+      console.log('setTransition Fb connect '+this.translation); 
   }
 
 }

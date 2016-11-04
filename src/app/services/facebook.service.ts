@@ -66,6 +66,16 @@ export class FacebookService implements OnInit {
     }
  }
 
+  checkStatus()
+  {
+    FB.getLoginStatus(this.callBackStatus);
+  }
+
+  callBackStatus(response)
+  {
+      console.log(response);
+  }
+
  public testEvents (response)
  {
       console.log("!!!!!!!!!!!!!!!!!!!!!handleUserEvents");

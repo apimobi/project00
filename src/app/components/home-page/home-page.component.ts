@@ -1,6 +1,7 @@
 import { 
   Component,
   OnInit,
+  OnDestroy,
   trigger,
   state,
   style,
@@ -8,6 +9,8 @@ import {
   animate
  } from '@angular/core';
 import { ParametersService } from '../../services/parameters.service';
+import { FacebookService } from '../../services/facebook.service';
+
 
 
 @Component({
@@ -46,13 +49,9 @@ export class HomePage implements OnInit {
   
   // constructor(private fbService:FacebookService) { }
   constructor(
-    private parametersService: ParametersService
+    private parametersService: ParametersService,
+    private fbService: FacebookService,
     ) {     
-     
-   }
-
-  ngOnInit() {
-     
      if(this.pageId > this.parametersService.getParameter('currentPageId')) 
      {
        if(this.parametersService.getCurrentPage())
@@ -66,14 +65,27 @@ export class HomePage implements OnInit {
           this.parametersService.getCurrentPage().setTransition('right');
        }   
        this.translation = 'left';
-     }
+     } 
+   }
+
+  ngOnInit() {
+     
      console.log('HomePage '+this.translation);
-     this.parametersService.setCurrentPageId(this.pageId);  
+     this.parametersService.setCurrentPageId(this.pageId); 
+     this.parametersService.setCurrentPage(this); 
+     this.fbService.checkStatus();
+
+     
+  }
+
+  ngOnDestroy() {
+     console.log('HomePage '+this.translation);
      
   }
 
   public setTransition(str:string):void
   {
+      console.log('setTransition HomePage '+this.translation);  
       this.translation = str;
   }
 

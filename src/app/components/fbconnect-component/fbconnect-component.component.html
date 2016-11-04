@@ -1,9 +1,7 @@
-<p>
-  fbconnect-component works!
-</p>
-<p style="z-index:1; background-color:white;" >
-  <a class="waves-effect waves-light btn" (click)="connectMe()">connect</a>
-  <!--<a class="waves-effect waves-light btn" (click)="showEvents()">show</a>-->
-  <a class="waves-effect waves-light btn" (click)="loadFBCover()">load</a>
-
-</p>  
+<div class="row connect">
+  <div class="grid-example col s12 m2">
+    <a class="waves-effect waves-light btn {{ connectEnable }} hcenter" (click)="connectMe()">connect</a>
+    <!--<a class="waves-effect waves-light btn {{ loadEnable }} hcenter" (click)="loadFBCover()">load</a>-->
+    <a class="waves-effect waves-light btn {{ calendarEnable }} hcenter" routerLink="/calendar">YOU'RE READY TO GO ></a>
+  </div> 
+ </div> 

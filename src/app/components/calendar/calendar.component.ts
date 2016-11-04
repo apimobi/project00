@@ -1,6 +1,7 @@
 import { 
   Component,
   OnInit,
+  OnDestroy,
   trigger,
   state,
   style,
@@ -73,10 +74,6 @@ export class Calendar implements OnInit {
     private dataService:DataService,
     private parametersService: ParametersService
     ) {
-
-   }
-
-  ngOnInit() {
      if(this.pageId > this.parametersService.getParameter('currentPageId')) 
      {
        if(this.parametersService.getCurrentPage())
@@ -90,15 +87,26 @@ export class Calendar implements OnInit {
           this.parametersService.getCurrentPage().setTransition('right');
        }   
        this.translation = 'left';
-     } 
+     }   
+   }
+
+  ngOnInit() {
+     
      console.log('Calendar '+this.translation);
      this.parametersService.setCurrentPageId(this.pageId);
+     this.parametersService.setCurrentPage(this); 
      this.calendarEvents =  this.dataService.getEvents(); 
      this.initCalendar('2016/10/01');
   }
 
+  ngOnDestroy() {
+     console.log('Destroy Calendar '+this.translation);
+     
+  }
+
   public setTransition(str:string):void
   {
+      console.log('setTransition Calendar '+this.translation);
       this.translation = str;
   }
 
